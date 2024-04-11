@@ -22,7 +22,7 @@ class PokemonDetailViewController: UIViewController {
     
     private let mainView: UIView = {
         let v = UIView()
-        v.backgroundColor = PokemonColor.grass
+        v.backgroundColor = PokedexColor.grass
         v.translatesAutoresizingMaskIntoConstraints = false
         return v
     }()

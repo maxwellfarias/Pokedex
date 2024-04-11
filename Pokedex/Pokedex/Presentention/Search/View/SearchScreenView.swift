@@ -37,7 +37,8 @@ A fim de evitar memory leak*/
         addSubview(table)
         table.dataSource = self
         table.delegate = self
-        table.rowHeight = 44
+        table.rowHeight = 100
+        table.separatorStyle = .none
     }
 }
 
@@ -48,7 +49,6 @@ extension SearchScreenView: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: SearchTableViewCell.identifier, for: indexPath) as! SearchTableViewCell
-        cell.titleTxt = "Row \(indexPath.row)"
         return cell
     }
     

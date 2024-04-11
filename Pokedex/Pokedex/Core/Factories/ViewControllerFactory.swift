@@ -32,6 +32,4 @@ class ViewControllerFactory: ViewControllerFactoryProtocol {
     func makePokemonDetailViewController(_ id: Int) -> PokemonDetailViewController {
         return PokemonDetailViewController(titlePassed: id)
     }
-    
-    
 }
