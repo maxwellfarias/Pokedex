@@ -31,6 +31,7 @@ class SearchViewController: UIViewController {
         viewModel.delegate = self
         contentView.delegate = self
         setupContentView()
+        view.backgroundColor = .white
     }
     
     override func viewDidLayoutSubviews() {

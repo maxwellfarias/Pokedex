@@ -10,8 +10,8 @@ import UIKit
 class SearchTableViewCell: UITableViewCell {
     
     static let identifier: String = "searchIdentifier"
-    private let maxImageSize: CGFloat = 80.0
-    
+    private let maxImageSize: CGFloat = 70
+    var favoriteIconSelected: Bool = false
     
     private lazy var mainView: UIView = {
         let v = UIView()
@@ -68,6 +68,16 @@ class SearchTableViewCell: UITableViewCell {
         return lb
     }()
     
+    lazy var favoriteIcon: UIButton = {
+        let btn = UIButton(type: .system)
+        btn.setImage(UIImage(systemName: "heart"), for: .normal)
+        btn.tintColor = .white
+        btn.alpha = 0.6
+        btn.addTarget(self, action: #selector(favoriteIconTapped), for: .touchUpInside)
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        return btn
+    }()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         applyViewCode()
@@ -79,20 +89,29 @@ class SearchTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        self.layoutIfNeeded()
         addGradient()
+        
     }
     
-   private func addGradient() {
-       let gradientLayer = CAGradientLayer()
-       gradientLayer.startPoint = CGPoint(x: 0.0, y: 1.0)
-       gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
-       gradientLayer.colors = [
-           PokedexColor.bgGrass?.cgColor ?? UIColor.clear.cgColor,
-           PokedexColor.bgGrass?.cgColor ?? UIColor.clear.cgColor,
-           PokedexColor.bgPoison?.cgColor ?? UIColor.clear.cgColor
-       ]
-       gradientLayer.frame = mainView.bounds
-       mainView.layer.insertSublayer(gradientLayer, at: 0)
+    private func addGradient() {
+        let gradientLayer = CAGradientLayer()
+        //       gradientLayer.locations = [0.0, 0.75, 1.0]
+               gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.5)
+               gradientLayer.endPoint = CGPoint(x: 1.0, y: 0.5)
+        gradientLayer.colors = [
+            PokedexColor.bgGrass?.cgColor ?? UIColor.clear.cgColor,
+            PokedexColor.bgGrass?.cgColor ?? UIColor.clear.cgColor,
+            PokedexColor.bgPoison?.cgColor ?? UIColor.clear.cgColor
+        ]
+        gradientLayer.frame = mainView.bounds
+        mainView.layer.insertSublayer(gradientLayer, at: 0)
+    }
+    
+    @objc private func favoriteIconTapped() {
+        favoriteIconSelected.toggle()
+        favoriteIcon.setImage(UIImage(systemName: favoriteIconSelected ? "heart.fill" : "heart"), for: .normal)
+        favoriteIcon.tintColor = favoriteIconSelected ? .red : .white
     }
     
     func prepareViews(image: UIImage, name: String, firstIconType: UIImage, secondIconType: UIImage, number: String) {
@@ -113,6 +132,7 @@ extension SearchTableViewCell: ViewCodeProtocol {
         mainView.addSubview(secondIconType)
         mainView.addSubview(secondIconType)
         mainView.addSubview(numberLb)
+        mainView.addSubview(favoriteIcon)
     }
     
     func setupConstraints() {
@@ -139,10 +159,8 @@ extension SearchTableViewCell: ViewCodeProtocol {
             numberLb.bottomAnchor.constraint(equalTo: mainView.bottomAnchor, constant: -5),
             numberLb.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -10),
             
-            
-          
-            
-            
+            favoriteIcon.topAnchor.constraint(equalTo: nameLb.topAnchor),
+            favoriteIcon.trailingAnchor.constraint(equalTo: numberLb.trailingAnchor)
         ])
     }
 }

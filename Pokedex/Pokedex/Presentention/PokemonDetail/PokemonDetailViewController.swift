@@ -37,6 +37,7 @@ class PokemonDetailViewController: UIViewController {
         super.viewDidLoad()
         applyViewCode()
         title = "\(titlePassed)"
+        view.backgroundColor = .white
     }
 }
 

@@ -22,7 +22,7 @@ class LivePreviewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        mainView.frame = CGRect(x: view.bounds.minX, y: view.bounds.minY, width: view.bounds.width, height: 100)
+        mainView.frame = CGRect(x: view.bounds.minX, y: view.bounds.minY, width: view.bounds.width, height: 90)
     }
 }
 struct ViewControllerRepresentable: UIViewControllerRepresentable {
